@@ -27,6 +27,6 @@ import com.google.gson.annotations.SerializedName
      @SerializedName("time")
      @Expose
      @NonNull
-     var time:Long?=null
+     var time:String?=null
 
 }

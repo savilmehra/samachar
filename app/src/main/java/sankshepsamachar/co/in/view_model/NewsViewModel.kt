@@ -12,10 +12,10 @@ class NewsViewModel():ViewModel() {
     var newsList:LiveData<List<NewsModel>>?=null
 
 
-    fun getDataFromRepo(ff:FirebaseCallback)
+    fun getDataFromRepo(ff:FirebaseCallback,time:String)
     {
         ProductsRepository().getResponseFromRealtimeDatabaseUsingCallback(
-      ff
+      ff,time
 
         )
 

@@ -3,17 +3,19 @@ package sankshepsamachar.co.`in`.repos
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import sankshepsamachar.co.`in`.interfaces.FirebaseCallback
 import sankshepsamachar.co.`in`.models.FirebaseResponseModel
 import sankshepsamachar.co.`in`.models.NewsModel
 
 class ProductsRepository(
     private val rootRef: DatabaseReference = FirebaseDatabase.getInstance().reference,
-    private val productRef: DatabaseReference = rootRef.child("data")
+
 ) {
     fun getResponseFromRealtimeDatabaseUsingCallback(
-        callback: FirebaseCallback
+        callback: FirebaseCallback,dataBaseName:String
     ) {
+         val productRef: DatabaseReference = rootRef.child(dataBaseName)
         productRef.get().addOnCompleteListener { task ->
             val response = FirebaseResponseModel()
             if (task.isSuccessful) {
@@ -26,7 +28,7 @@ class ProductsRepository(
             }
             response.newsList?.let {
 
-                callback.onResponse(MutableLiveData(it)) }
+                callback.onResponse(response) }
         }
     }
 }

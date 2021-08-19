@@ -117,7 +117,7 @@ class UploadActivity : AppCompatActivity() , CoroutineScope {
             newsModel.link=binding.link.text.toString()
             newsModel.title=binding.title.text.toString()
             newsModel.description=binding.des.text.toString()
-            newsModel.time=tsLong
+            newsModel.time=tsLong.toString()
             val initTask =  dataRef?.setValue(newsModel)
 
             initTask?.addOnSuccessListener(OnSuccessListener<Any?> {

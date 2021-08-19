@@ -23,7 +23,7 @@ import java.util.ArrayList
 
 
 class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder>() {
-    private var list: List<NewsModel> = ArrayList<NewsModel>()
+    private var list: MutableList<NewsModel> = ArrayList<NewsModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsHolder {
         val itemView: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_item, parent, false)
@@ -55,8 +55,9 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder
         return list.size
     }
 
-    fun setlist(d: List<NewsModel>) {
-        this.list = d
+    fun setList(d: MutableList<NewsModel>) {
+        d.reverse()
+        list.addAll(d)
         notifyDataSetChanged()
 
     }
