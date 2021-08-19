@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "243336732326",
+    "firebase_url": "https://samachar-62ef2-default-rtdb.firebaseio.com",
+    "project_id": "samachar-62ef2",
+    "storage_bucket": "samachar-62ef2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243336732326:android:66d78e2b749fa561061e67",
+        "android_client_info": {
+          "package_name": "sankshepsamachar.co.in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243336732326-7ek0fp7ec9s5ksnp7bkijacnjcet98qv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtm7iZA6hXuYNcZBqRDOf7BHqC0In-3cQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243336732326-7ek0fp7ec9s5ksnp7bkijacnjcet98qv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
