@@ -36,16 +36,16 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder
         holder.dis.setText(news.description.toString())
 
         holder.ivButton.setOnClickListener {
-            val intii= Intent(ctx,WebViewActivity::class.java)
+            val intii= Intent(ctx as MainActivity,WebViewActivity::class.java)
             intii.putExtra("url",news.link)
-           ( ctx as MainActivity).startActivity(intii)
+           ( ctx ).startActivity(intii)
 
         }
 
         Glide.with(ctx)
             .load(news.url)
             .placeholder(R.drawable.placeholder)
-            .fitCenter()
+            .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .dontTransform()
             .into(holder.iv)
