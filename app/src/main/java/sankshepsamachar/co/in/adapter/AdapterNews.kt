@@ -2,6 +2,7 @@ package sankshepsamachar.co.`in`.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import sankshepsamachar.co.`in`.MainActivity
 import sankshepsamachar.co.`in`.R
 import sankshepsamachar.co.`in`.activities.WebViewActivity
@@ -24,9 +29,12 @@ import java.util.ArrayList
 
 class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder>() {
     private var list: MutableList<NewsModel> = ArrayList<NewsModel>()
+    private var mInterstitialAd: InterstitialAd? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsHolder {
         val itemView: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_item, parent, false)
+
+
         return NewsHolder(itemView)
     }
 
@@ -35,6 +43,33 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder
         holder.title.setText(news.title.toString())
         holder.dis.setText(news.description.toString())
 
+
+
+        if(position%5==0 && position!=0)
+        {
+            var adRequest = AdRequest.Builder().build()
+
+            InterstitialAd.load(ctx,"ca-app-pub-4164184164875270/7526353616", adRequest, object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d("TAG", adError?.message)
+                    mInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.d("TAG", "Added.")
+                    mInterstitialAd = interstitialAd
+
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd?.show(ctx as MainActivity)
+                    } else {
+                        Log.d("TAG", "The interstitial ad wasn't ready yet.")
+                    }
+                }
+
+
+            })
+
+        }
         holder.ivButton.setOnClickListener {
             val intii= Intent(ctx as MainActivity,WebViewActivity::class.java)
             intii.putExtra("url",news.link)

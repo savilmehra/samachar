@@ -3,10 +3,12 @@ package sankshepsamachar.co.`in`
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseDatabase= FirebaseDatabase.getInstance()
+        MobileAds.initialize(this) {}
         currentDate = Calendar.getInstance().time
         datFormat = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         dataBaseName = datFormat!!.format(currentDate)
@@ -49,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         vm=ViewModelProvider(this).get(NewsViewModel::class.java)
         adp=AdapterNews(this)
         binding.vp.adapter=adp
-
+binding.progressBarCyclic.visibility= View.VISIBLE
         binding.vp.registerOnPageChangeCallback(
             object :ViewPager2.OnPageChangeCallback()
             {
@@ -117,9 +120,10 @@ runBlocking {
 
     fun getData()
     {
+        binding.progressBarCyclic.visibility= View.VISIBLE
         vm.getDataFromRepo(object :FirebaseCallback{
             override fun onResponse(res: FirebaseResponseModel) {
-
+                binding.progressBarCyclic.visibility= View.INVISIBLE
 
                 res.newsList?.let { adp.setList(it as MutableList<NewsModel>) }
             }

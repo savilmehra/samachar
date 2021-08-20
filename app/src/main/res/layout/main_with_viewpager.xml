@@ -5,6 +5,7 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -13,11 +14,43 @@
     android:layout_height="match_parent">
 
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp"
+    <FrameLayout
+        android:id="@+id/fm"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="@color/black_main"
+            android:layout_height="match_parent"/>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar_cyclic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="LARGE_BANNER"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:adUnitId="ca-app-pub-4164184164875270/6234194533" />
+    </FrameLayout>
+
 
 
     <androidx.appcompat.widget.AppCompatButton
