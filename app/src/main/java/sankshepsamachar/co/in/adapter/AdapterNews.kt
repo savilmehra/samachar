@@ -45,7 +45,7 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder
 
 
 
-        if(position%5==0 && position!=0)
+        if(position%7==0 && position!=0)
         {
             var adRequest = AdRequest.Builder().build()
 
@@ -93,6 +93,13 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<AdapterNews.NewsHolder
     fun setList(d: MutableList<NewsModel>) {
         d.reverse()
         list.addAll(d)
+        notifyDataSetChanged()
+
+    }
+
+    fun setInCurrentPosition(d: NewsModel) {
+        list.clear()
+    list.add(d)
         notifyDataSetChanged()
 
     }

@@ -29,4 +29,9 @@ import com.google.gson.annotations.SerializedName
      @NonNull
      var time:String?=null
 
+     @SerializedName("epoch")
+     @Expose
+     @NonNull
+     var epoch:Long?=null
+
 }

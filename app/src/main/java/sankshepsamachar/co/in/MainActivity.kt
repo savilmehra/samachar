@@ -1,9 +1,12 @@
 package sankshepsamachar.co.`in`
 
-
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         vm=ViewModelProvider(this).get(NewsViewModel::class.java)
         adp=AdapterNews(this)
         binding.vp.adapter=adp
-binding.progressBarCyclic.visibility= View.VISIBLE
+        binding.progressBarCyclic.visibility= View.VISIBLE
         binding.vp.registerOnPageChangeCallback(
             object :ViewPager2.OnPageChangeCallback()
             {
@@ -87,7 +90,9 @@ binding.progressBarCyclic.visibility= View.VISIBLE
             }
 
         )
+        getFcm()
         getData()
+
         binding.bt.setOnClickListener {
             val ss=loadJSONFromAsset()
             val data=Gson().fromJson(ss,MainData::class.java)
@@ -114,9 +119,23 @@ runBlocking {
 
         }
 
-
-
     }
+
+   private fun getFcm()
+   {
+
+       if (intent.extras != null) {
+           var nModel=NewsModel()
+           nModel.url=intent.extras!!["url"].toString()
+           nModel.title=intent.extras!!["title"].toString()
+           nModel.description=intent.extras!!["description"].toString()
+           nModel.link=intent.extras!!["link"].toString()
+
+           Toast.makeText(this,Gson().toJson(nModel),Toast.LENGTH_LONG).show()
+           showFcmData(nModel)
+       }
+
+   }
 
     fun getData()
     {
@@ -130,6 +149,10 @@ runBlocking {
 
 
         },dataBaseName)
+    }
+    private fun showFcmData(item:NewsModel)
+    {
+        adp.setInCurrentPosition(item)
     }
     suspend fun uploadData(n:NewsModel)
     {

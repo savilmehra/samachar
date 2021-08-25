@@ -9,7 +9,6 @@ import sankshepsamachar.co.`in`.repos.ProductsRepository
 
 class NewsViewModel():ViewModel() {
 
-    var newsList:LiveData<List<NewsModel>>?=null
 
 
     fun getDataFromRepo(ff:FirebaseCallback,time:String)
@@ -21,7 +20,14 @@ class NewsViewModel():ViewModel() {
 
     }
 
+    fun getSingleItem(ff:FirebaseCallback,node:String,epoch:String)
+    {
+        ProductsRepository().getSingleItem(
+            ff,node,epoch
 
+        )
+
+    }
 
 
 
