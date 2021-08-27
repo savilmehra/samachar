@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "243336732326-vft4sde9sqqbpiqa9kgdbn0i3okj6m5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sankshepsamachar.co.in",
+            "certificate_hash": "afb530e1fcd82c939cb79a03f57f862958112ed7"
+          }
+        },
+        {
           "client_id": "243336732326-7ek0fp7ec9s5ksnp7bkijacnjcet98qv.apps.googleusercontent.com",
           "client_type": 3
         }

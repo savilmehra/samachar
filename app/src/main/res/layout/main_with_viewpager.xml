@@ -47,15 +47,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             ads:adSize="LARGE_BANNER"
+            android:layout_marginBottom="20dp"
             ads:layout_constraintBottom_toBottomOf="parent"
             ads:adUnitId="ca-app-pub-4164184164875270/6234194533" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv0"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textSize="12sp"
+        android:padding="8dp"
+        ads:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Publishers Contact Information"
+        android:layout_height="wrap_content"/>
 
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="wrap_content"
   android:layout_margin="30dp"
         android:text="upload"

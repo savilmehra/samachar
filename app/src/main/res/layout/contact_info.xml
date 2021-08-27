@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="30dp"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:text="Contact Information Of publishers"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/tv1"
+            android:layout_margin="30dp"
+            android:textSize="12sp"
+           android:gravity="center"
+            android:text="
+            Email :YourQuestions@bbc.co.uk
+            Mobile :03700 100 222
+            Send your letter to:
+
+BBC Comments
+PO Box 1922
+Darlington
+DL3 0UR
+2 :
+Aajtak	Contact	01244712442
+
+"
+            android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

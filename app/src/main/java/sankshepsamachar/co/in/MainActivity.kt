@@ -2,6 +2,7 @@ package sankshepsamachar.co.`in`
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import sankshepsamachar.co.`in`.activities.ContactInformationActivity
 import sankshepsamachar.co.`in`.adapter.AdapterNews
 import sankshepsamachar.co.`in`.databinding.MainWithViewpagerBinding
 import sankshepsamachar.co.`in`.interfaces.FirebaseCallback
@@ -56,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         adp=AdapterNews(this)
         binding.vp.adapter=adp
         binding.progressBarCyclic.visibility= View.VISIBLE
+
+        binding.tv0.setOnClickListener {
+            val i= Intent(this, ContactInformationActivity::class.java)
+            startActivity(i)
+        }
         binding.vp.registerOnPageChangeCallback(
             object :ViewPager2.OnPageChangeCallback()
             {

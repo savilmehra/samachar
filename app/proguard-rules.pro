@@ -23,3 +23,12 @@
 -dontwarn java.nio.file.Path
 -dontwarn java.nio.file.OpenOption
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+  # Add this global rule
+    -keepattributes Signature
+
+    # This rule will properly ProGuard all the model classes in
+    # the package com.yourcompany.models.
+    # Modify this rule to fit the structure of your app.
+    -keepclassmembers class sankshepsamachar.co.in.models.** {
+      *;
+    }
