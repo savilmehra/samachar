@@ -16,6 +16,9 @@ import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import sankshepsamachar.co.`in`.activities.ContactInformationActivity
@@ -34,7 +37,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-
     private lateinit var binding: MainWithViewpagerBinding
     private lateinit var vm: NewsViewModel
     private  lateinit var adp:AdapterNews
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     private var list: List<NewsModel> = ArrayList<NewsModel>()
     private  var datFormat:SimpleDateFormat?=null
     private  var currentDate:Date?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         adp=AdapterNews(this)
         binding.vp.adapter=adp
         binding.progressBarCyclic.visibility= View.VISIBLE
+
+
+
 
         binding.tv0.setOnClickListener {
             val i= Intent(this, ContactInformationActivity::class.java)
