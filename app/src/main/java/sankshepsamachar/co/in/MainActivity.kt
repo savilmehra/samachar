@@ -157,7 +157,11 @@ runBlocking {
             override fun onResponse(res: FirebaseResponseModel) {
                 binding.progressBarCyclic.visibility= View.INVISIBLE
 
-                res.newsList?.let { adp.setList(it as MutableList<NewsModel>) }
+
+                res.newsList?.let {
+
+
+                    adp.setList(it as MutableList<NewsModel>) }
             }
 
 
