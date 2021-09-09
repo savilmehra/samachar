@@ -96,7 +96,7 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
     private fun addAd(holder:AdsHolder) {
-        val builder = AdLoader.Builder(ctx, "ca-app-pub-4164184164875270/4242624732")
+        val builder = AdLoader.Builder(ctx, "ca-app-pub-4164184164875270/5951076620")
         builder.forNativeAd { nativeAd ->
             val adView =(ctx as MainActivity).layoutInflater
                 .inflate(R.layout.ads_lyt, null) as NativeAdView

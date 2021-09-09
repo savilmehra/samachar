@@ -22,6 +22,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import sankshepsamachar.co.`in`.activities.ContactInformationActivity
+import sankshepsamachar.co.`in`.activities.WebViewActivity
 import sankshepsamachar.co.`in`.adapter.AdapterNews
 import sankshepsamachar.co.`in`.databinding.MainWithViewpagerBinding
 import sankshepsamachar.co.`in`.interfaces.FirebaseCallback
@@ -62,12 +63,11 @@ class MainActivity : AppCompatActivity() {
         binding.vp.adapter=adp
         binding.progressBarCyclic.visibility= View.VISIBLE
 
-
-
-
         binding.tv0.setOnClickListener {
-            val i= Intent(this, ContactInformationActivity::class.java)
-            startActivity(i)
+            val intii= Intent(this, WebViewActivity::class.java)
+            intii.putExtra("url","https://sites.google.com/view/sankshepsamachar/home")
+            ( this ).startActivity(intii)
+
         }
         binding.vp.registerOnPageChangeCallback(
             object :ViewPager2.OnPageChangeCallback()
