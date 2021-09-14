@@ -65,6 +65,8 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val news: NewsModel = list[position]
 
+
+        Log.e("binding page number=",position.toString())
         if(holder is NewsHolder) {
             holder.title.setText(news.title.toString())
             holder.dis.setText(news.description.toString())
