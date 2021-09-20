@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+
 import sankshepsamachar.co.`in`.R
 import sankshepsamachar.co.`in`.databinding.WebviewActivityBinding
 
@@ -19,6 +20,7 @@ class WebViewActivity:AppCompatActivity() {
 
         binding.webView.loadUrl(ff)
         // intent.getStringExtra("url")?.let { binding.webView.loadUrl(it) }
+
 
 
     }

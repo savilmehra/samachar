@@ -136,16 +136,14 @@ runBlocking {
 
    private fun getFcm()
    {
-
-       if (intent.extras != null) {
+       if (intent.extras != null && intent.extras!!["url"]!=null && intent.extras!!["title"]!=null) {
            var nModel=NewsModel()
            nModel.url=intent.extras!!["url"].toString()
            nModel.title=intent.extras!!["title"].toString()
            nModel.description=intent.extras!!["description"].toString()
            nModel.link=intent.extras!!["link"].toString()
 
-           Toast.makeText(this,Gson().toJson(nModel),Toast.LENGTH_LONG).show()
-           showFcmData(nModel)
+          showFcmData(nModel)
        }
 
    }

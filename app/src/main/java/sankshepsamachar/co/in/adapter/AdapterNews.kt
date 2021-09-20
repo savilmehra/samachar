@@ -2,32 +2,24 @@ package sankshepsamachar.co.`in`.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.request.RequestOptions
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.ads.*
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.squareup.picasso.Picasso
 import sankshepsamachar.co.`in`.MainActivity
 import sankshepsamachar.co.`in`.R
 import sankshepsamachar.co.`in`.activities.WebViewActivity
-import sankshepsamachar.co.`in`.databinding.NewsItemBinding
 import sankshepsamachar.co.`in`.models.NewsModel
-import sankshepsamachar.co.`in`.view_model.NewsViewModel
-import java.util.ArrayList
+import java.util.*
 
 
 class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -68,6 +60,10 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
 
         Log.e("binding page number=",position.toString())
         if(holder is NewsHolder) {
+            if(position!=0)
+                holder.ivUp.visibility=View.GONE
+            else
+                holder.ivUp.visibility=View.VISIBLE
             holder.title.setText(news.title.toString())
             holder.dis.setText(news.description.toString())
             holder.ivButton.setOnClickListener {
@@ -76,13 +72,15 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
                 ( ctx ).startActivity(intii)
 
             }
-            Glide.with(ctx)
+
+
+            Picasso.get()
                 .load(news.url)
                 .placeholder(R.drawable.placeholder)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontTransform()
-                .into(holder.iv)
+                .error(R.drawable.error)
+
+                .into(holder.iv);
+
         }
         else
         {
@@ -117,6 +115,12 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
         builder.withNativeAdOptions(adOptions)
 
         val adLoader = builder.withAdListener(object : AdListener() {
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                holder.place.visibility=View.GONE
+            }
+
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 val error =
                     """
@@ -256,7 +260,8 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
         val title: TextView
         val dis: TextView
         val iv:ImageView
-        val ivButton:ImageView
+        val ivButton: LottieAnimationView
+        val ivUp:LottieAnimationView
 
 
         init {
@@ -264,6 +269,7 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
             dis = itemView.findViewById(R.id.tvDetail)
             iv=itemView.findViewById(R.id.iv)
             ivButton=itemView.findViewById(R.id.ih)
+            ivUp=itemView.findViewById(R.id.animationView)
 
         }
     }
@@ -271,8 +277,10 @@ class AdapterNews(val ctx:Context) : RecyclerView.Adapter<RecyclerView.ViewHolde
     inner class AdsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val frame : FrameLayout
+        val place:LottieAnimationView
         init {
             frame=itemView.findViewById(R.id.frm)
+            place=itemView.findViewById(R.id.animationView)
         }
     }
 
