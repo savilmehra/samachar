@@ -13,8 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.MobileAds
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -45,9 +44,11 @@ class MainActivity : AppCompatActivity() {
     private  var firebaseDatabase: FirebaseDatabase?=null
     private var currentPage:Int=0
     private  var dataBaseName:String=""
+    private  var dataBaseNameUpload:String=""
     private var list: List<NewsModel> = ArrayList<NewsModel>()
     private  var datFormat:SimpleDateFormat?=null
     private  var currentDate:Date?=null
+    private  var isOneTimeDownloaded=false;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         currentDate = Calendar.getInstance().time
         datFormat = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
         dataBaseName = datFormat!!.format(currentDate)
+        dataBaseNameUpload=datFormat!!.format(Calendar.getInstance().time)
         binding=DataBindingUtil.setContentView(this,R.layout.main_with_viewpager)
         vm=ViewModelProvider(this).get(NewsViewModel::class.java)
         adp=AdapterNews(this)
@@ -136,7 +138,21 @@ runBlocking {
 
    private fun getFcm()
    {
-       if (intent.extras != null && intent.extras!!["url"]!=null && intent.extras!!["title"]!=null) {
+
+      // binding.progressBarCyclic.visibility= View.VISIBLE
+   /*    vm.getSingleItem(object :FirebaseCallback{
+           override fun onResponse(res: FirebaseResponseModel) {
+               binding.progressBarCyclic.visibility= View.INVISIBLE
+
+               res.newsList?.let {
+
+                   adp.setList(it as MutableList<NewsModel>) }
+           }
+
+
+       },dataBaseName,intent.extras!!["time"].toString())
+*/
+     /*  if (intent.extras != null && intent.extras!!["url"]!=null && intent.extras!!["title"]!=null) {
            var nModel=NewsModel()
            nModel.url=intent.extras!!["url"].toString()
            nModel.title=intent.extras!!["title"].toString()
@@ -145,7 +161,7 @@ runBlocking {
 
           showFcmData(nModel)
        }
-
+*/
    }
 
     fun getData()
@@ -154,6 +170,21 @@ runBlocking {
         vm.getDataFromRepo(object :FirebaseCallback{
             override fun onResponse(res: FirebaseResponseModel) {
                 binding.progressBarCyclic.visibility= View.INVISIBLE
+
+                if( res.newsList!!.isEmpty() && !isOneTimeDownloaded)
+                {
+                    currentPage+=1
+                    val c = Calendar.getInstance()
+                    c.time = currentDate
+                    c.add(Calendar.DATE, -currentPage)
+                    dataBaseName = datFormat!!.format(c.time)
+                    Log.d("Daya-------",dataBaseName)
+                    getData()
+                }
+                else
+                {
+                    isOneTimeDownloaded=true;
+                }
 
 
                 res.newsList?.let {
@@ -171,7 +202,7 @@ runBlocking {
     }
     suspend fun uploadData(n:NewsModel)
     {
-        dataRef = firebaseDatabase?.getReference(dataBaseName)?.push()
+        dataRef = firebaseDatabase?.getReference(dataBaseNameUpload)?.push()
        dataRef?.setValue(n)
 
 

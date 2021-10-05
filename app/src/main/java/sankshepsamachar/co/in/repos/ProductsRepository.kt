@@ -1,8 +1,7 @@
 package sankshepsamachar.co.`in`.repos
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
+import android.util.Log
+import com.google.firebase.database.*
 import sankshepsamachar.co.`in`.interfaces.FirebaseCallback
 import sankshepsamachar.co.`in`.models.FirebaseResponseModel
 import sankshepsamachar.co.`in`.models.NewsModel
@@ -34,20 +33,18 @@ class ProductsRepository(private val rootRef: DatabaseReference = FirebaseDataba
         callback: FirebaseCallback,dataBaseName:String, value:String
     ) {
         val productRef: DatabaseReference = rootRef.child(dataBaseName)
-        val query: Query = productRef.orderByChild("epoch").equalTo(value)
-        query.get().addOnCompleteListener { task ->
-            val response = FirebaseResponseModel()
-            if (task.isSuccessful) {
-                val result = task.result
-                result?.let {
-                    response.newsList = result.children.map { snapShot ->
-                        snapShot.getValue(NewsModel::class.java)!!
-                    }
-                }
-            }
-            response.newsList?.let {
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                callback.onResponse(response) }
+
+                Log.d("TAG-------------------",  dataSnapshot.key.toString())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("TAG++++++", "loadPost:onCancelled", databaseError.toException())
+            }
         }
+        productRef.orderByChild("time").equalTo(value).addListenerForSingleValueEvent(postListener)
     }
 }
